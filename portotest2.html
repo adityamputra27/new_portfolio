@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Aditya Muhamad Putra P. — Full‑Stack Developer</title>
+  <meta name="description" content="Modern one‑page portfolio: Full‑Stack Developer for Web & Mobile (Next.js, React, Laravel, Flutter)." />
+  <meta property="og:title" content="Aditya Muhamad Putra P. — Full‑Stack Developer" />
+  <meta property="og:description" content="Modern one‑page portfolio: Web, Mobile, Next.js, React, Laravel, Flutter." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#0b0f19" />
+
+  <!-- Google Font: Nunito -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Nunito', 'ui-sans-serif', 'system-ui'] },
+          colors: {
+            base: { 900: '#0b0f19', 800: '#0e1424', 700: '#111827' },
+            primary: {
+              50: '#fff7ed', 100: '#ffedd5', 200: '#fed7aa', 300: '#fdba74', 400: '#fb923c',
+              500: '#f97316', 600: '#ea580c', 700: '#c2410c', 800: '#9a3412', 900: '#7c2d12'
+            }
+          },
+          boxShadow: {
+            glow: '0 0 0 1px rgba(249,115,22,0.4), 0 10px 40px rgba(249,115,22,0.18)'
+          },
+          backgroundImage: {
+            grid: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0)'
+          },
+          keyframes: {
+            floaty: { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-10px)' } },
+            shimmer: { '0%': { backgroundPosition: '-200% 0' }, '100%': { backgroundPosition: '200% 0' } },
+            fadeUp: { '0%': { opacity: 0, transform: 'translateY(18px)' }, '100%': { opacity: 1, transform: 'translateY(0)' } },
+            scaleIn: { '0%': { opacity: 0, transform: 'scale(0.98)' }, '100%': { opacity: 1, transform: 'scale(1)' } },
+            pulseRing: { '0%': { boxShadow: '0 0 0 0 rgba(249,115,22,.35)' }, '80%': { boxShadow: '0 0 0 22px rgba(249,115,22,0)' }, '100%': { boxShadow: '0 0 0 0 rgba(249,115,22,0)' } },
+            drift: { '0%': { backgroundPosition: '0 0' }, '100%': { backgroundPosition: '60px 60px' } },
+            orbit: {
+              '0%': { transform: 'rotate(0deg) translateX(70px) rotate(0deg)' },
+              '100%': { transform: 'rotate(360deg) translateX(70px) rotate(-360deg)' }
+            },
+            glowloop: { '0%,100%': { opacity: .45 }, '50%': { opacity: 1 } }
+          },
+          animation: {
+            floaty: 'floaty 6s ease-in-out infinite',
+            floatySlow: 'floaty 9s ease-in-out infinite',
+            shimmer: 'shimmer 2.5s linear infinite',
+            fadeUp: 'fadeUp 700ms ease both',
+            scaleIn: 'scaleIn 500ms ease both',
+            pulseRing: 'pulseRing 2.4s ease-out infinite',
+            drift: 'drift 30s linear infinite',
+            orbit: 'orbit 12s linear infinite',
+            orbitSlow: 'orbit 18s linear infinite',
+            glowloop: 'glowloop 6s ease-in-out infinite'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Texture + noise */
+    .noise::before { content:''; position:fixed; inset:0; pointer-events:none; background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/></filter><rect width="120" height="120" filter="url(%23n)" opacity=".04"/></svg>'); mix-blend-mode:soft-light;}
+    /* Button ripple */
+    .btn-ripple { position:relative; overflow:hidden; }
+    .btn-ripple:after { content:''; position:absolute; inset:auto; left:var(--x,50%); top:var(--y,50%); width:0; height:0; border-radius:9999px; transform:translate(-50%,-50%); background:rgba(255,255,255,.25); opacity:0; transition:width .45s ease, height .45s ease, opacity .8s ease; }
+    .btn-ripple:active:after { opacity:1; width:240px; height:240px; }
+    /* Card tilt */
+    .tilt:hover { transform: perspective(900px) rotateX(4deg) rotateY(-6deg) scale(1.01); }
+    .tilt { transition: transform .6s cubic-bezier(.2,.8,.2,1); will-change: transform; }
+    /* Reduce motion */
+    @media (prefers-reduced-motion: reduce) {
+      .tilt, [data-animate] { transition: none !important; animation: none !important; }
+    }
+    /* Animated grid background */
+    .bg-grid-anim { background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0); background-size: 24px 24px; animation: drift 50s linear infinite; }
+    /* Skill badge styling */
+    .badge { display:inline-flex; align-items:center; gap:.5rem; padding:.55rem .75rem; border-radius:9999px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.12); font-size:.85rem; }
+    .badge .level { margin-left:.25rem; font-size:.7rem; color:#fb923c; background:rgba(249,115,22,.08); border:1px solid rgba(249,115,22,.25); padding:.18rem .45rem; border-radius:9999px; }
+    .chip { font-size:.7rem; padding:.35rem .6rem; border-radius:9999px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.04); }
+  </style>
+</head>
+<body class="noise bg-base-900 text-white font-sans selection:bg-primary-500/40 selection:text-white">
+  <!-- Decorative motion blobs -->
+  <div aria-hidden class="fixed -top-24 -left-24 w-[40rem] h-[40rem] bg-gradient-to-br from-primary-500/20 via-primary-400/10 to-transparent blur-3xl rounded-full animate-floaty"></div>
+  <div aria-hidden class="fixed bottom-0 right-0 w-[36rem] h-[36rem] bg-gradient-to-tr from-primary-500/10 via-white/5 to-transparent blur-3xl rounded-full animate-floatySlow"></div>
+
+  <!-- Header / Nav -->
+  <header class="sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-base-900/70 border-b border-white/5">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <a href="#home" class="inline-flex items-center gap-2 group">
+          <!-- <span class="relative inline-block">
+            <span class="absolute inset-0 rounded-xl bg-gradient-to-r from-primary-400/40 to-white/0 blur animate-glowloop"></span>
+            <span class="relative inline-flex h-9 w-9 items-center justify-center rounded-xl bg-base-800 shadow-glow ring-1 ring-white/10 group-hover:scale-105 transition">AM</span>
+          </span> -->
+          <span class="font-extrabold tracking-wide">dittmptrr<span class="text-primary-400">27</span></span>
+        </a>
+        <nav class="hidden md:flex items-center gap-1" id="nav">
+          <a href="#about" class="px-3 py-2 rounded-lg text-sm text-white/80 hover:text-white hover:bg-white/5">About</a>
+          <a href="#services" class="px-3 py-2 rounded-lg text-sm text-white/80 hover:text-white hover:bg-white/5">Services</a>
+          <a href="#skills" class="px-3 py-2 rounded-lg text-sm text-white/80 hover:text-white hover:bg-white/5">Skills</a>
+          <a href="#projects" class="px-3 py-2 rounded-lg text-sm text-white/80 hover:text-white hover:bg-white/5">Projects</a>
+          <a href="#education" class="px-3 py-2 rounded-lg text-sm text-white/80 hover:text-white hover:bg-white/5">Education</a>
+          <a href="#experience" class="px-3 py-2 rounded-lg text-sm text-white/80 hover:text-white hover:bg-white/5">Experience</a>
+          <a href="#contact" class="px-3 py-2 rounded-lg text-sm text-white/80 hover:text-white hover:bg-white/5">Contact</a>
+        </nav>
+        <div class="flex items-center gap-2">
+          <a href="#contact" class="btn-ripple inline-flex items-center gap-2 rounded-2xl bg-primary-600 px-4 py-2 text-sm font-semibold shadow-glow hover:bg-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-400/50">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 8V20H3V8" stroke="currentColor" stroke-width="1.5"/><path d="M21 8L12 14L3 8L7 4H17L21 8Z" stroke="currentColor" stroke-width="1.5"/></svg>
+            Hire Me
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section id="home" class="relative overflow-hidden">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 md:py-28">
+      <div class="grid md:grid-cols-2 md:gap-0 sm:gap-10 items-center">
+        <div data-animate class="space-y-6">
+          <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70">
+            <span class="inline-flex h-1.5 w-1.5 rounded-full bg-primary-400"></span>
+            Open to collaboration
+          </div>
+          <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight">
+            Aditya Muhamad Putra P.
+            <span class="block bg-gradient-to-r from-white to-primary-300 bg-clip-text text-transparent">Full‑Stack Developer</span>
+          </h1>
+          <p class="text-white/70 max-w-xl">Building end‑to‑end products for Web & Mobile. Focus on <span class="text-white">Next.js</span>, <span class="text-white">React</span>, <span class="text-white">Laravel</span>, and <span class="text-white">Flutter</span>. Clean UX, high performance, also can collaborate closely with cross-functional teams.</p>
+          <div class="flex flex-wrap items-center gap-3">
+            <a href="#projects" class="btn-ripple inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold hover:bg-white/10">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 7h16M4 12h16M4 17h10" stroke="currentColor" stroke-width="1.5"/></svg>
+              View Projects
+            </a>
+            <button id="copyEmail" class="btn-ripple inline-flex items-center gap-2 rounded-2xl bg-primary-600 px-4 py-2 text-sm font-semibold shadow-glow hover:bg-primary-500">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 7l9 6 9-6" stroke="currentColor" stroke-width="1.5"/><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/></svg>
+              Copy Email
+            </button>
+            <span id="copyToast" class="hidden text-xs text-white/70">Email copied ✓</span>
+          </div>
+          <div class="flex items-center gap-4 pt-2 text-white/80">
+            <a href="https://github.com/adityamputra27" class="hover:text-white" aria-label="GitHub" title="GitHub">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 .5A11.5 11.5 0 0 0 .5 12.4c0 5.26 3.44 9.72 8.21 11.3.6.1.82-.27.82-.6v-2.07c-3.34.74-4.04-1.6-4.04-1.6-.55-1.42-1.34-1.8-1.34-1.8-1.1-.77.08-.75.08-.75 1.21.09 1.86 1.25 1.86 1.25 1.08 1.88 2.84 1.34 3.53 1.02.11-.8.42-1.34.76-1.65-2.66-.31-5.47-1.36-5.47-6.06 0-1.34.46-2.42 1.23-3.28-.12-.31-.53-1.57.12-3.27 0 0 1-.33 3.3 1.25a11.36 11.36 0 0 1 6 0c2.28-1.58 3.28-1.25 3.28-1.25.65 1.7.24 2.96.12 3.27.77.86 1.22 1.94 1.22 3.28 0 4.71-2.82 5.74-5.5 6.05.43.37.82 1.1.82 2.24v3.33c0 .33.22.71.82.6A11.53 11.53 0 0 0 23.5 12.4 11.5 11.5 0 0 0 12 .5Z"/></svg>
+            </a>
+            <a href="https://www.linkedin.com/in/aditya-muhamad-putra-p/" class="hover:text-white" aria-label="LinkedIn" title="LinkedIn">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5ZM.5 8.5h4V24h-4V8.5Zm7.5 0h3.82v2.11h.05c.53-1 1.84-2.11 3.79-2.11C20.5 8.5 24 11.13 24 16.2V24h-4v-6.95c0-1.66-.03-3.8-2.31-3.8-2.32 0-2.68 1.8-2.68 3.67V24h-4V8.5Z"/></svg>
+            </a>
+            <!-- <a href="#" class="hover:text-white" aria-label="X (Twitter)" title="X">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M17.19 1.55h3.58l-7.82 8.94L22.5 22.45h-6.1l-4.77-6.2-5.47 6.2H2.57l8.37-9.49L1.5 1.55h6.26l4.31 5.67 5.12-5.67Zm-1.07 18.7h1.98L7.97 3.62H5.86l10.26 16.63Z"/></svg>
+            </a> -->
+          </div>
+        </div>
+        <div data-animate class="relative">
+          <div class="relative ms-auto w-64 h-64 sm:w-72 sm:h-72 rounded-[2rem] p-1 bg-gradient-to-r from-white/10 via-primary-400/40 to-white/10 animate-shimmer [background-size:200%_100%] ring-1 ring-white/10">
+            <img alt="Aditya portrait" src="profile.jpeg" class="w-full h-full object-cover rounded-[1.6rem]" />
+            <!-- pulsing ring -->
+            <span class="absolute -inset-2 rounded-[2.2rem] animate-pulseRing"></span>
+          </div>
+          <!-- orbiting tech pills -->
+          <div class="absolute inset-0 pointer-events-none">
+            <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+              <div class="relative h-40 w-40">
+                <span class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 inline-flex items-center gap-2 rounded-2xl bg-white/5 px-3 py-1.5 ring-1 ring-white/10 text-xs animate-orbit">Web</span>
+                <span class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 inline-flex items-center gap-2 rounded-2xl bg-white/5 px-3 py-1.5 ring-1 ring-white/10 text-xs animate-orbitSlow" style="--tw-rotate:45deg;">Mobile</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="relative">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
+      <div data-animate class="grid md:grid-cols-3 gap-10 items-start">
+        <div class="md:col-span-2 space-y-4">
+          <h2 class="text-2xl sm:text-3xl font-extrabold">About</h2>
+          <p class="text-white/70 leading-relaxed">
+            <!-- Full‑Stack Developer who loves clean, high‑performance experiences. Comfortable designing architecture, building APIs, crafting modern interfaces, and shipping with Docker & Nginx. Collaborative, iterative, and quality‑driven. -->
+            Full‑Stack Developer with 5 years of experience in creating and optimizing web applications. My expertise lies in developing responsive, user-friendly interfaces and enhancing user experience through thoughtful UI/UX design. I collaborate closely with cross-functional teams to understand user needs and deliver visually appealing expectations.
+          </p>
+          <div class="flex flex-wrap gap-3 pt-2">
+            <span class="rounded-xl bg-white/5 px-3 py-1.5 text-xs ring-1 ring-white/10">Remote / On‑site</span>
+            <span class="rounded-xl bg-white/5 px-3 py-1.5 text-xs ring-1 ring-white/10">Freelance / Contract</span>
+            <span class="rounded-xl bg-white/5 px-3 py-1.5 text-xs ring-1 ring-white/10">Indonesia / Global</span>
+          </div>
+        </div>
+        <div class="space-y-3">
+          <div class="rounded-2xl bg-white/5 p-4 ring-1 ring-white/10">
+            <div class="text-sm text-white/60">Email</div>
+            <div class="font-semibold">dittmptrr27@gmail.com</div>
+          </div>
+          <div class="rounded-2xl bg-white/5 p-4 ring-1 ring-white/10">
+            <div class="text-sm text-white/60">Focus</div>
+            <div class="font-semibold">Next.js • React • Laravel • Flutter</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services (new section) -->
+  <section id="services" class="relative">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
+      <div data-animate class="mb-10">
+        <h2 class="text-2xl sm:text-3xl font-extrabold">Services</h2>
+        <p class="text-white/60 mt-2">From idea to production‑ready delivery.</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="tilt rounded-2xl bg-white/5 p-6 ring-1 ring-white/10">
+          <div class="mb-3 inline-flex items-center gap-2 text-primary-300">
+            <span class="h-2 w-2 rounded-full bg-primary-400"></span><span class="font-bold">Product & UI/UX</span>
+          </div>
+          <p class="text-white/70">User‑centered design, prototypes, and design systems that scale.</p>
+        </div>
+        <div class="tilt rounded-2xl bg-white/5 p-6 ring-1 ring-white/10">
+          <div class="mb-3 inline-flex items-center gap-2 text-primary-300">
+            <span class="h-2 w-2 rounded-full bg-primary-400"></span><span class="font-bold">Full‑Stack Development</span>
+          </div>
+          <p class="text-white/70">Next.js, REST API, secure backends, and robust integrations.</p>
+        </div>
+        <div class="tilt rounded-2xl bg-white/5 p-6 ring-1 ring-white/10">
+          <div class="mb-3 inline-flex items-center gap-2 text-primary-300">
+            <span class="h-2 w-2 rounded-full bg-primary-400"></span><span class="font-bold">DevOps & Delivery</span>
+          </div>
+          <p class="text-white/70">
+            <!-- CI/CD pipelines, Docker, Nginx, observability, and reliability. -->
+             Docker, Nginx, observability, and reliability.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills (no progress bars; with logos) -->
+  <section id="skills" class="relative">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
+      <div data-animate class="flex items-end justify-between gap-6 mb-8">
+        <h2 class="text-2xl sm:text-3xl font-extrabold">Skills & Tech Stack</h2>
+        <!-- <span class="text-xs text-white/60">Badges + logos, no progress bars</span> -->
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Languages -->
+        <div class="tilt rounded-2xl bg-white/5 p-5 ring-1 ring-white/10">
+          <div class="mb-3 flex items-center gap-2 font-bold"><span class="h-2 w-2 rounded-full bg-primary-400"></span>Languages</div>
+          <div class="flex flex-wrap gap-2">
+            <div class="badge">
+              <img class="w-[16px]" src="/logos/skills/typescript.png" alt="">
+              <span>TypeScript</span>
+            </div>
+            <div class="badge">
+              <img class="w-[16px]" src="/logos/skills/javascript.png" alt="">
+              <span>JavaScript</span>
+            </div>
+            <div class="badge">
+              <img class="w-[16px]" src="/logos/skills/php.png" alt="">
+              <span>PHP</span>
+            </div>
+            <div class="badge">
+              <img class="w-[16px]" src="/logos/skills/dart.png" alt="">
+              <span>Dart</span>
+            </div>
+            <div class="badge">
+              <img class="w-[16px]" src="/logos/skills/python.png" alt="">
+              <span>Python</span>
+            </div>
+            <!-- <span class="badge">{JS}
+              <span class="sr-only">JavaScript</span>
+              <span class="level">Expert</span>
+            </span>
+            <span class="badge">{PHP}
+              <span class="sr-only">PHP</span>
+              <span class="level">Advanced</span>
+            </span>
+            <span class="badge">{Go}
+              <span class="sr-only">Go</span>
+              <span class="level">Intermediate</span>
+            </span> -->
+          </div>
+        </div>
+        <!-- Frameworks -->
+        <div class="tilt rounded-2xl bg-white/5 p-5 ring-1 ring-white/10">
+          <div class="mb-3 flex items-center gap-2 font-bold"><span class="h-2 w-2 rounded-full bg-primary-400"></span>Frameworks</div>
+          <div class="flex flex-wrap gap-2">
+            <div class="badge">
+              <img class="w-[16px]" src="/logos/skills/nextjs.svg" alt="">
+              <span>Next.js</span>
+            </div>
+            <div class="badge">
+              <img class="w-[16px]" src="/logos/skills/react.svg" alt="">
+              <span>React.js</span>
+            </div>
+            <div class="badge">
+              <img class="w-[16px]" src="/logos/skills/expressjs.svg" alt="">
+              <span>Express.js</span>
+            </div>
+            <div class="badge">
+              <img class="w-[16px]" src="/logos/skills/laravel.svg" alt="">
+              <span>Laravel</span>
+            </div>
+            <div class="badge">
+              <img class="w-[16px]" src="/logos/skills/nuxt.svg" alt="">
+              <span>Nuxt.js</span>
+            </div>
+            <div class="badge">
+              <img class="w-[16px]" src="/logos/skills/flutter.svg" alt="">
+              <span>Flutter</span>
+            </div>
+            <div class="badge">
+              <img class="w-[16px]" src="/logos/skills/vue.svg" alt="">
+              <span>Vue.js</span>
+            </div>
+            <!-- <span class="badge">{N}
+              <span class="sr-only">Next.js</span>
+              <span class="level">Expert</span>
+            </span>
+            <span class="badge">{R}
+              <span class="sr-only">React</span>
+              <span class="level">Expert</span>
+            </span>
+            <span class="badge">{L}
+              <span class="sr-only">Laravel</span>
+              <span class="level">Advanced</span>
+            </span>
+            <span class="badge">{F}
+              <span class="sr-only">Flutter</span>
+              <span class="level">Intermediate</span>
+            </span> -->
+          </div>
+        </div>
+        <!-- Tools -->
+        <div class="tilt rounded-2xl bg-white/5 p-5 ring-1 ring-white/10">
+          <div class="mb-3 flex items-center gap-2 font-bold"><span class="h-2 w-2 rounded-full bg-primary-400"></span>Tools</div>
+          <div class="flex flex-wrap gap-2">
+            <div class="badge">
+              <img class="w-[16px]" src="/logos/skills/docker.svg" alt="">
+              <span>Docker</span>
+            </div>
+            <div class="badge">
+              <img class="w-[16px]" src="/logos/skills/nginx.png" alt="">
+              <span>Nginx</span>
+            </div>
+            <div class="badge">
+              <img class="w-[16px]" src="/logos/skills/mysql.png" alt="">
+              <span>MySQL</span>
+            </div>
+            <div class="badge">
+              <img class="w-[16px]" src="/logos/skills/redis.svg" alt="">
+              <span>Redis</span>
+            </div>
+            <div class="badge">
+              <img class="w-[16px]" src="/logos/skills/tailwindcss.svg" alt="">
+              <span>Tailwind CSS</span>
+            </div>
+            <div class="badge">
+              <img class="w-[16px]" src="/logos/skills/figma.svg" alt="">
+              <span>FIGMA</span>
+            </div>
+            <!-- <span class="badge">{Dk}
+              <span class="sr-only">Docker</span>
+              <span class="level">Advanced</span>
+            </span>
+            <span class="badge">{Nx}
+              <span class="sr-only">Nginx</span>
+              <span class="level">Advanced</span>
+            </span>
+            <span class="badge">{PG}
+              <span class="sr-only">PostgreSQL</span>
+              <span class="level">Intermediate</span>
+            </span>
+            <span class="badge">{Rd}
+              <span class="sr-only">Redis</span>
+              <span class="level">Intermediate</span>
+            </span>
+            <span class="badge">{Tw}
+              <span class="sr-only">Tailwind CSS</span>
+              <span class="level">Expert</span>
+            </span> -->
+          </div>
+        </div>
+        <!-- Platforms -->
+        <div class="tilt rounded-2xl bg-white/5 p-5 ring-1 ring-white/10">
+          <div class="mb-3 flex items-center gap-2 font-bold"><span class="h-2 w-2 rounded-full bg-primary-400"></span>Platforms</div>
+          <div class="flex flex-wrap gap-2">
+            <div class="badge">
+              <img class="w-[16px]" src="/logos/skills/web.png" alt="">
+              <span>Web</span>
+            </div>
+            <div class="badge">
+              <img class="w-[16px]" src="/logos/skills/android.svg" alt="">
+              <span>Android</span>
+            </div>
+            <div class="badge">
+              <img class="w-[16px]" src="/logos/skills/ios.png" alt="">
+              <span>IOS</span>
+            </div>
+            <div class="badge">
+              <img class="w-[16px]" src="/logos/skills/vps.png" alt="">
+              <span>Cloud VPS</span>
+            </div>
+            <!-- <span class="badge">{Wb}
+              <span class="sr-only">Web</span>
+              <span class="level">Primary</span>
+            </span>
+            <span class="badge">{An}
+              <span class="sr-only">Android</span>
+              <span class="level">Prod</span>
+            </span>
+            <span class="badge">{iO}
+              <span class="sr-only">iOS</span>
+              <span class="level">Prod</span>
+            </span>
+            <span class="badge">{CI}
+              <span class="sr-only">Cloud CI/CD</span>
+              <span class="level">Ready</span>
+            </span> -->
+          </div>
+        </div>
+      </div>
+
+      <!-- tiny logo legend rendered with CSS only -->
+      <style>
+        .badge:before{content:'';display:inline-block;width:16px;height:16px;border-radius:4px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.25);background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.02));}
+        .badge:has(+ .sr-only){}
+      </style>
+
+      <!-- Replace {XX} tokens with SVG logos -->
+      <script>
+        const logoMap = {
+          TS: `https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Typescript_logo_2020.svg/512px-Typescript_logo_2020.svg.png?20221110153201`,
+          JS: `<svg width="16" height="16" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#F7DF1E"/><text x="50%" y="62%" text-anchor="middle" font-size="12" fill="#111" font-family="Nunito, Arial">JS</text></svg>`,
+          PHP:`<svg width="16" height="16" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#777BB3"/><text x="50%" y="62%" text-anchor="middle" font-size="10" fill="#fff" font-family="Nunito, Arial">PHP</text></svg>`,
+          Go:`<svg width="16" height="16" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#00ADD8"/><text x="50%" y="62%" text-anchor="middle" font-size="10" fill="#003642" font-family="Nunito, Arial">Go</text></svg>`,
+          N:`<svg width="16" height="16" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#111"/><path d="M6 17V7h2l4 6 4-6h2v10h-2V11l-4 6-4-6v6H6Z" fill="#fff"/></svg>`,
+          R:`<svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#20232A"/><circle cx="12" cy="12" r="3" fill="#61DAFB"/><g stroke="#61DAFB" stroke-width="1.5" fill="none"><ellipse cx="12" cy="12" rx="9" ry="4"/><ellipse cx="12" cy="12" rx="9" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="4" transform="rotate(120 12 12)"/></g></svg>`,
+          L:`<svg width="16" height="16" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#F05340"/><path d="M6 18l6-12h6l-6 12H6Z" fill="#fff"/></svg>`,
+          F:`<svg width="16" height="16" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#02569B"/><path d="M6 16l7-8 5 6-6 6-6-4Z" fill="#13B9FD"/></svg>`,
+          Dk:`<svg width="16" height="16" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#2496ED"/><path d="M6 14h6l2 2h4l-3 3H9l-3-5Z" fill="#fff"/></svg>`,
+          Nx:`<svg width="16" height="16" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#2E8B57"/><path d="M6 17V7l6 5 6-5v10H6Z" fill="#fff"/></svg>`,
+          PG:`<svg width="16" height="16" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#336791"/><path d="M6 8h12v8H6z" fill="#fff"/></svg>`,
+          Rd:`<svg width="16" height="16" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#DC382D"/><circle cx="12" cy="12" r="4" fill="#fff"/></svg>`,
+          Tw:`<svg width="16" height="16" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#0EA5E9"/><path d="M6 14l4-6 4 6H6Z" fill="#fff"/></svg>`,
+          Wb:`<svg width="16" height="16" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#111827"/><circle cx="12" cy="12" r="5" fill="#fff"/></svg>`,
+          An:`<svg width="16" height="16" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#3DDC84"/><path d="M6 17l6-12 6 12H6Z" fill="#111"/></svg>`,
+          iO:`<svg width="16" height="16" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#111"/><circle cx="12" cy="12" r="5" fill="#fff"/></svg>`,
+          CI:`<svg width="16" height="16" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#6366F1"/><path d="M6 12h12M12 6v12" stroke="#fff" stroke-width="2"/></svg>`
+        };
+        document.querySelectorAll('#skills .badge').forEach(b=>{
+          const token = b.textContent.match(/\{(.*?)\}/);
+          if(token){
+            const key = token[1];
+            b.innerHTML = (logoMap[key]||'') + '<span>' + key + '</span>' + b.innerHTML.replace(token[0],'');
+          }
+        });
+      </script>
+    </div>
+  </section>
+
+  <!-- Projects (10 items, 4 per row on large screens) -->
+  <section id="projects" class="relative">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
+      <div data-animate class="flex items-end justify-between gap-6 mb-8">
+        <h2 class="text-2xl sm:text-3xl font-extrabold">Latest Projects</h2>
+        <!-- <a href="#contact" class="text-sm text-primary-300 hover:text-primary-200">Need something similar? Let's talk →</a> -->
+      </div>
+      <!-- 
+        1. Netive: Internet Service Provider (ISP) #1 in Indonesia - ok
+        2. Nyapa CRM v2.0 - ok
+        3. Punggawa Nusantara - PLN Nusantara Power - ok
+        4. Learning Management System - UNPI Cianjur
+        5. Piala Presiden APK + Web - ok
+        6. Pixilio E-Commerce Digital Products - ok
+        7. AQMonitorX Mobile App
+        8. Cicle App
+        9. Iphone 15 Pro Landing Page - ok
+        10. Nexa POS (SASS Point of Sales)
+      -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <!-- 10 project cards -->
+        <article class="tilt group rounded-2xl overflow-hidden bg-white/5 ring-1 ring-white/10">
+          <div class="aspect-video bg-grid-anim">
+            <img src="/logos/projects/netive.png" class="h-48 w-full object-cover" alt="">
+          </div>
+          <div class="p-5 space-y-3">
+            <div class="flex items-center justify-between">
+              <h3 class="font-bold">Netive: Internet Service Provider (ISP) #1 in Indonesia</h3>
+            </div>
+            <!-- <p class="text-sm text-white/70">SSO, invoices, notifications. Dockerized, Nginx, Redis cache.</p> -->
+            <div class="flex flex-wrap gap-2 pt-1">
+              <span class="chip">Next.js</span><span class="chip">REST API</span><span class="chip">Docker</span><span class="chip">Tailwind</span><span class="chip">Prisma</span>
+            </div>
+          </div>
+        </article>
+        <article class="tilt group rounded-2xl overflow-hidden bg-white/5 ring-1 ring-white/10">
+          <div class="aspect-video bg-grid-anim">
+            <img src="/logos/projects/nyapa.png" class="h-48 w-full object-cover" alt="">
+          </div>
+          <div class="p-5 space-y-3">
+            <div class="flex items-center justify-between">
+              <h3 class="font-bold">Nyapa CRM Omnichannel v2.0</h3>
+            </div>
+            <!-- <p class="text-sm text-white/70">Daily reminders, secure sync, role‑based access.</p> -->
+            <div class="flex flex-wrap gap-2 pt-1"><span class="chip">Next.js</span><span class="chip">Redux</span><span class="chip">Tailwind</span><span class="chip">Socket</span></div>
+          </div>
+        </article>
+        <article class="tilt group rounded-2xl overflow-hidden bg-white/5 ring-1 ring-white/10">
+          <div class="aspect-video bg-grid-anim">
+            <img src="/logos/projects/pln.png" class="h-48 w-full object-cover" alt="">
+          </div>
+          <div class="p-5 space-y-3">
+            <div class="flex items-center justify-between">
+              <h3 class="font-bold">Punggawa Nusantara - PLN Nusantara Power</h3>
+              <!-- <span class="text-xs text-white/60">Next.js • Socket</span> -->
+            </div>
+            <!-- <p class="text-sm text-white/70">Fast search, reply/forward, device/agent integrations.</p> -->
+            <div class="flex flex-wrap gap-2 pt-1"><span class="chip">Laravel</span><span class="chip">Material CSS</span><span class="chip">REST API</span></div>
+          </div>
+        </article>
+        <article class="tilt group rounded-2xl overflow-hidden bg-white/5 ring-1 ring-white/10">
+          <div class="aspect-video bg-grid-anim">
+            <img src="/logos/projects/placeholder.svg" class="h-48 w-full object-cover" alt="">
+          </div>
+          <div class="p-5 space-y-3">
+            <div class="flex items-center justify-between">
+              <h3 class="font-bold">Learning Management System - UNPI Cianjur</h3>
+              <!-- <span class="text-xs text-white/60">Next.js</span> -->
+            </div>
+            <!-- <p class="text-sm text-white/70">Interactive map, tiles, geospatial queries.</p> -->
+            <div class="flex flex-wrap gap-2 pt-1"><span class="chip">Laravel</span><span class="chip">REST API</span><span class="chip">React.js</span><span class="chip">Context</span></div>
+          </div>
+        </article>
+        <article class="tilt group rounded-2xl overflow-hidden bg-white/5 ring-1 ring-white/10">
+          <div class="aspect-video bg-grid-anim">
+            <img src="/logos/projects/pp.png" class="h-48 w-full object-cover" alt="">
+          </div>
+          <div class="p-5 space-y-3">
+            <div class="flex items-center justify-between">
+              <h3 class="font-bold">Unofficial Piala Presiden APK + Web</h3>
+              <!-- <span class="text-xs text-white/60">Laravel</span> -->
+            </div>
+            <!-- <p class="text-sm text-white/70">Role‑based CMS, media library, audit logs.</p> -->
+            <div class="flex flex-wrap gap-2 pt-1"><span class="chip">Laravel</span><span class="chip">Flutter</span><span class="chip">FCM</span><span class="chip">Supabase</span><span class="chip">Realtime Database</span></div>
+          </div>
+        </article>
+        <article class="tilt group rounded-2xl overflow-hidden bg-white/5 ring-1 ring-white/10">
+          <div class="aspect-video bg-grid-anim">
+            <img src="/logos/projects/aqmonitorx.png" class="h-48 w-full object-cover" alt="">
+          </div>
+          <div class="p-5 space-y-3">
+            <div class="flex items-center justify-between">
+              <h3 class="font-bold">AQMonitorX - Air Quality Monitoring Mobile App</h3>
+              <!-- <span class="text-xs text-white/60">Next.js</span> -->
+            </div>
+            <!-- <p class="text-sm text-white/70">SSR/ISR storefront, cart, checkout, webhooks.</p> -->
+            <div class="flex flex-wrap gap-2 pt-1"><span class="chip">Flutter</span><span class="chip">Thingspeak</span></div>
+          </div>
+        </article>
+        <article class="tilt group rounded-2xl overflow-hidden bg-white/5 ring-1 ring-white/10">
+          <div class="aspect-video bg-grid-anim">
+            <img src="/logos/projects/cicle.png" class="h-48 w-full object-cover" alt="">
+          </div>
+          <div class="p-5 space-y-3">
+            <div class="flex items-center justify-between">
+              <h3 class="font-bold">Cicle App: All in One Tool Productivity Management</h3>
+              <!-- <span class="text-xs text-white/60">Next.js</span> -->
+            </div>
+            <!-- <p class="text-sm text-white/70">SSR/ISR storefront, cart, checkout, webhooks.</p> -->
+            <div class="flex flex-wrap gap-2 pt-1"><span class="chip">React.js</span><span class="chip">Node.js</span><span class="chip">Express.js</span><span class="chip">Socket</span></div>
+          </div>
+        </article>
+        <article class="tilt group rounded-2xl overflow-hidden bg-white/5 ring-1 ring-white/10">
+          <div class="aspect-video bg-grid-anim">
+            <img src="/logos/projects/medisy.png" class="h-48 w-full object-cover" alt="">
+          </div>
+          <div class="p-5 space-y-3">
+            <div class="flex items-center justify-between">
+              <h3 class="font-bold">Medisy: Medical is Easy</h3>
+              <!-- <span class="text-xs text-white/60">Next.js</span> -->
+            </div>
+            <!-- <p class="text-sm text-white/70">SSR/ISR storefront, cart, checkout, webhooks.</p> -->
+            <div class="flex flex-wrap gap-2 pt-1"><span class="chip">Next.js</span><span class="chip">Material UI</span><span class="chip">Redux</span><span class="chip">Socket</span><span class="chip">PHP</span><span class="chip">Codeigniter</span></div>
+          </div>
+        </article>
+        <article class="tilt group rounded-2xl overflow-hidden bg-white/5 ring-1 ring-white/10">
+          <div class="aspect-video bg-grid-anim">
+            <img src="/logos/projects/iphone.png" class="h-48 w-full object-cover" alt="">
+          </div>
+          <div class="p-5 space-y-3">
+            <div class="flex items-center justify-between">
+              <h3 class="font-bold">Iphone 15 Pro Landing Page</h3>
+              <!-- <span class="text-xs text-white/60">Next.js</span> -->
+            </div>
+            <!-- <p class="text-sm text-white/70">SSR/ISR storefront, cart, checkout, webhooks.</p> -->
+            <div class="flex flex-wrap gap-2 pt-1"><span class="chip">Next.js</span><span class="chip">Tailwind</span></div>
+          </div>
+        </article>
+        <article class="tilt group rounded-2xl overflow-hidden bg-white/5 ring-1 ring-white/10">
+          <div class="aspect-video bg-grid-anim">
+            <img src="/logos/projects/placeholder.svg" class="h-48 w-full object-cover" alt="">
+          </div>
+          <div class="p-5 space-y-3">
+            <div class="flex items-center justify-between">
+              <h3 class="font-bold">Nexa POS (Sass Point of Sales)</h3>
+              <!-- <span class="text-xs text-white/60">Next.js</span> -->
+            </div>
+            <!-- <p class="text-sm text-white/70">SSR/ISR storefront, cart, checkout, webhooks.</p> -->
+            <div class="flex flex-wrap gap-2 pt-1"><span class="chip">Codeigniter 3</span><span class="chip">Bootstrap</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Education -->
+  <section id="education" class="relative">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
+      <div data-animate class="mb-10">
+        <h2 class="text-2xl sm:text-3xl font-extrabold">My Educations</h2>
+        <!-- <p class="text-white/60 mt-2">Add or adjust details as needed.</p> -->
+      </div>
+      <ol class="relative border-s border-white/10 ps-6 space-y-10">
+        <li data-animate>
+          <div class="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full bg-primary-500"></div>
+          <h3 class="font-bold pl-3">Bachelor's in Informatics Engineering — Putra Indonesia University</h3>
+          <div class="text-xs text-white/60 mb-2">2021 - 2025</div>
+          <!-- <p class="text-white/70">Focus on software engineering, distributed systems, and HCI.</p> -->
+          <ul class="text-white/70">
+            <li>- Maintained a GPA of 3.92/4.00, demonstrating consistent academic excellence and dedication to my studies.</li>
+            <li>- Top 5 UI/UX Design Competition INFEST Suryakencana University 2025</li>
+            <li>- Participated in the 7th National Informatics Fun Competition for Web Design at Muhammadiyah University of Riau.</li>
+            <li>- Achieved 2nd Place in the Frontend Web Design Competition at Syiah Kuala University, showcasing skills in web development and design.</li>
+            <li>- Work-Study Balance, successfully managed academic commitments while being a working student in an evening class (Non-Regular), demonstrating strong time management and dedication to professional growth.</li>
+          </ul>
+        </li>
+        <li data-animate>
+          <div class="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full bg-primary-500"></div>
+          <h3 class="font-bold pl-3">Software Engineering — SMK Negeri 1 Cianjur</h3>
+          <div class="text-xs text-white/60 mb-2">2018 - 2021</div>
+          <!-- <p class="text-white/70">Cloud, security, and performance optimization workshops.</p> -->
+          <ul class="text-white/70">
+            <li>- Ranked 1st in the Rekayasa Perangkat Lunak (Software Engineering) department, maintaining top grades throughout my studies in grades X, XI, and XII.</li>
+            <li>- Earned the BNSP Junior Programmer certification in 2021, validating my programming skills and knowledge.</li>
+            <li>- Initiated freelancing in 2019, applying my programming skills in real-world projects and gaining practical experience.</li>
+            <li>- Studied essential programming concepts, including pseudocode, data structures, database normalization, and web frameworks, laying a strong foundation for my software development career.</li>
+            <li>- Began exploring the world of programming in 2018, developing a passion for technology and software engineering.</li>
+          </ul>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section id="experience" class="relative">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
+      <div data-animate class="mb-10">
+        <h2 class="text-2xl sm:text-3xl font-extrabold">My Experiences</h2>
+        <!-- <p class="text-white/60 mt-2">Compact timeline.</p> -->
+      </div>
+      <ol class="relative border-s border-white/10 ps-6 space-y-10">
+        <li data-animate>
+          <div class="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full bg-primary-500"></div>
+          <h3 class="font-bold pl-3">Software Developer — PT. Madtive Studio Indonesia</h3>
+          <div class="text-xs text-white/60 mb-2">October 2020 — Present</div>
+          <p class="text-white/70">
+            During my tenure at PT. Madtive Studio Indonesia, I was responsible for developing and maintaining software
+            solutions tailored to meet various client needs. My role involved designing and implementing features,
+            debugging, and optimizing performance to ensure high-quality outcomes. I collaborated closely with crossfunctional teams to deliver projects that adhered to best practices and industry standards. This position
+            allowed me to enhance my technical skills and contribute to successful project completions, reinforcing my
+            expertise in software development. 
+          </p>
+          <p class="text-white/70 mt-2">
+            Some of the projects i have built and contributed: Hospital Landing Page, Point of Sales, 
+            HR Information System, Clinic System, Company Profile Landing Page, Management Korps Brimob Officer and more.
+          </p>
+          <p class="text-white/70 mt-2">
+            My time at PT. Madtive Studio Indonesia provided valuable insights into the workflow and systems used in the
+            industry. I worked collaboratively in a team environment, which greatly enhanced my teamwork skills.
+            Additionally, I focused on learning the fundamental frameworks used in development, laying a strong
+            foundation for my career in software development.
+          </p>
+        </li>
+        <li data-animate>
+          <div class="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full bg-primary-500"></div>
+          <h3 class="font-bold pl-3">Full‑Stack Developer — PT. Cilsy Fiolution Indonesia</h3>
+          <div class="text-xs text-white/60 mb-2">December 2024 — March 2025</div>
+          <p class="text-white/70">Develop existing product Cicle.app with Modern Techstack React.js, Node.js, Express.js, Socket and Docker</p>
+        </li>
+        <li data-animate>
+          <div class="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full bg-primary-500"></div>
+          <h3 class="font-bold pl-3">IT Staff Programmer — Dinas Perhubungan Kab. Cianjur</h3>
+          <div class="text-xs text-white/60 mb-2">July 2023 — December 2023</div>
+          <ul class="text-white/70">
+            <li>- Developed and tailored software systems to meet the specific needs of the Department of Transportation, enhancing operational efficiency.</li>
+            <li>- Presented developed systems to government officials, gathered feedback, and iterated improvements to align with department standards and goals.</li>
+            <li>- Successfully deployed software solutions on government servers, facilitating smooth integration with existing infrastructure for optimal functionality.</li>
+          </ul>
+        </li>
+        <li data-animate>
+          <div class="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full bg-primary-500"></div>
+          <h3 class="font-bold pl-3">Full‑Stack Developer — Reskin Aliendroid</h3>
+          <div class="text-xs text-white/60 mb-2">January 2023 — December 2023</div>
+          <p class="text-white/70">
+            During my time as a Freelancer Full Stack Developer for Reskin Aliendroid, I worked on enhancing the
+            aliendro.id marketplace website Android source code. My role involved developing new features to expand the
+            system's capabilities, addressing and fixing various bugs to ensure smooth operation, and redesigning the
+            product detail pages to improve the overall user experience. This work contributed to a more functional and
+            visually appealing platform.
+          </p>
+        </li>
+        <li data-animate>
+          <div class="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full bg-primary-500"></div>
+          <h3 class="font-bold pl-3">Full‑Stack Developer — Freelancer (Self Employed)</h3>
+          <div class="text-xs text-white/60 mb-2">January 2019 — January 2020</div>
+          <p class="text-white/70">
+            I began my freelancing journey through communication on Facebook groups, where I connected with potential
+            clients. During this period, I worked on various small programs and projects, including student assignments,
+            which helped me hone my skills and gain practical experience in software development.
+          </p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="relative">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
+      <div data-animate class="grid lg:grid-cols-2 gap-10 items-start">
+        <div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold">Contact</h2>
+          <p class="text-white/70 mt-2">Tell me about your needs. Fast response via email or whatsapp.</p>
+          <div class="mt-6 space-y-3">
+            <div class="flex items-center gap-3"><span class="h-2 w-2 rounded-full bg-emerald-400"></span> <span class="text-white/80">Available for short/long‑term projects</span></div>
+            <div class="flex items-center gap-3"><span class="h-2 w-2 rounded-full bg-primary-400"></span> <span class="text-white/80">Architecture consulting & code reviews</span></div>
+            <!-- <div class="mt-6 flex flex-wrap items-center gap-3">
+              <a href="mailto:dittmptrr27th@gmail.com" class="btn-ripple inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold hover:bg-white/10">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 7l9 6 9-6" stroke="currentColor" stroke-width="1.5"/><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/></svg>
+                Hire Me
+              </a>
+              <a id="waQuick" href="#" class="btn-ripple inline-flex items-center gap-2 rounded-2xl bg-primary-600 px-4 py-2 text-sm font-semibold shadow-glow hover:bg-primary-500">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2a10 10 0 0 0-8.94 14.58L2 22l5.58-1.06A10 10 0 1 0 12 2Z" stroke="currentColor" stroke-width="1.5"/><path d="M8.5 9.5c.2 2.6 2.4 4.8 5 5l1.8-1.2a1 1 0 0 1 1.3.2l.6.7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                WhatsApp
+              </a>
+            </div> -->
+            <p class="text-xs text-white/50 mt-2">Email: <span class="text-white/70">dittmptrr27th@gmail.com</span></p>
+            <p class="text-xs text-white/50 mt-2">Phone: <span class="text-white/70">+6281222534937</span></p>
+          </div>
+        </div>
+        <form id="contactForm" class="rounded-2xl bg-white/5 p-6 ring-1 ring-white/10 space-y-4">
+          <div class="grid sm:grid-cols-2 gap-4">
+            <label class="block">
+              <span class="text-sm text-white/70">Name</span>
+              <input required id="fName" type="text" class="mt-1 w-full rounded-xl border-0 bg-white/10 px-3 py-2 ring-1 ring-inset ring-white/10 placeholder:text-white/40 focus:ring-2 focus:ring-primary-500" placeholder="Full name" />
+            </label>
+            <label class="block">
+              <span class="text-sm text-white/70">Email</span>
+              <input required id="fEmail" type="email" class="mt-1 w-full rounded-xl border-0 bg-white/10 px-3 py-2 ring-1 ring-inset ring-white/10 placeholder:text-white/40 focus:ring-2 focus:ring-primary-500" placeholder="name@email.com" />
+            </label>
+          </div>
+          <label class="block">
+            <span class="text-sm text-white/70">Subject</span>
+            <input required id="fSubject" type="text" class="mt-1 w-full rounded-xl border-0 bg-white/10 px-3 py-2 ring-1 ring-inset ring-white/10 placeholder:text-white/40 focus:ring-2 focus:ring-primary-500" placeholder="Message title" />
+          </label>
+          <label class="block">
+            <span class="text-sm text-white/70">Message</span>
+            <textarea required id="fMessage" rows="5" class="mt-1 w-full rounded-xl border-0 bg-white/10 px-3 py-2 ring-1 ring-inset ring-white/10 placeholder:text-white/40 focus:ring-2 focus:ring-primary-500" placeholder="Share a brief about your project..."></textarea>
+          </label>
+
+          <div class="flex flex-wrap gap-3">
+            <button id="sendEmailBtn" type="button" class="btn-ripple inline-flex items-center justify-center gap-2 rounded-2xl bg-primary-600 px-5 py-2.5 font-semibold shadow-glow hover:bg-primary-500">
+              Send via Email
+            </button>
+            <button id="sendWaBtn" type="button" class="btn-ripple inline-flex items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-5 py-2.5 font-semibold hover:bg-white/10">
+              Send via WhatsApp
+            </button>
+          </div>
+          <div id="formToast" class="hidden text-sm text-emerald-400">Opening your Email/WhatsApp…</div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/5">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-white/60">
+      <div>© <span id="year"></span> Aditya Muhamad Putra P.</div>
+      <div class="flex items-center gap-4">
+        <a href="#home" class="hover:text-white">Home</a>
+        <a href="#projects" class="hover:text-white">Projects</a>
+        <a href="#contact" class="hover:text-white">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // dynamic year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // reveal on scroll + stagger + scrollspy
+    const revealEls = [...document.querySelectorAll('[data-animate]')];
+    const navLinks = [...document.querySelectorAll('#nav a')];
+
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.style.animationDelay = (parseFloat(entry.target.dataset.delay||'0')*1)+'ms';
+          entry.target.classList.add('animate-fadeUp');
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach((el,i) => { el.classList.add('opacity-0'); el.dataset.delay = (i%6)*70; obs.observe(el); });
+
+    const sections = ['home','about','services','skills','projects','education','experience','contact'].map(id => document.getElementById(id));
+    const spy = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const id = entry.target.getAttribute('id');
+        const link = navLinks.find(a => a.getAttribute('href') === `#${id}`);
+        if (link) link.classList.toggle('bg-white/5', entry.isIntersecting);
+      })
+    }, { rootMargin: '-50% 0px -50% 0px', threshold: 0.01 });
+    sections.forEach(s => s && spy.observe(s));
+  </script>
+
+  <script>
+    // ==== CONFIG ====
+    const TARGET_EMAIL = 'dittmptrr27th@gmail.com';
+    const WA_NUMBER = '6281222534937'; 
+
+    // Quick WA button (pakai template pendek)
+    document.getElementById('waQuick').addEventListener('click', (e) => {
+      e.preventDefault();
+      const txt = encodeURIComponent('Halo Aditya Muhamad Putra P., saya berkenan ingin diskusi proyek.');
+      const url = `https://wa.me/${WA_NUMBER}?text=${txt}`;
+      window.open(url, '_blank');
+    });
+
+    // Form handlers
+    const toast = document.getElementById('formToast');
+    const getVals = () => {
+      const name = document.getElementById('fName').value.trim();
+      const email = document.getElementById('fEmail').value.trim();
+      const subject = document.getElementById('fSubject').value.trim();
+      const message = document.getElementById('fMessage').value.trim();
+      return { name, email, subject, message };
+    };
+
+    // Send via Email (mailto)
+    document.getElementById('sendEmailBtn').addEventListener('click', () => {
+      const { name, email, subject, message } = getVals();
+      if(!name || !email || !subject || !message) return alert('Please fill all fields.');
+      const body = encodeURIComponent(
+        `Hi Adit,
+
+        ${message}
+
+        —
+        Sender: ${name}
+        Email: ${email}`
+      );
+      const mailto = `mailto:${TARGET_EMAIL}?subject=${encodeURIComponent(subject)}&body=${body}`;
+      toast.classList.remove('hidden');
+      window.location.href = mailto;
+      setTimeout(()=>toast.classList.add('hidden'), 1500);
+    });
+
+    // Send via WhatsApp
+    document.getElementById('sendWaBtn').addEventListener('click', () => {
+      const { name, email, subject, message } = getVals();
+      if(!name || !email || !subject || !message) return alert('Please fill all fields.');
+      const text = encodeURIComponent(
+        `Subject: ${subject}
+        ${message}
+        —
+        ${name} · ${email}`
+      );
+      const waUrl = `https://wa.me/${WA_NUMBER}?text=${text}`;
+      toast.classList.remove('hidden');
+      window.open(waUrl, '_blank');
+      setTimeout(()=>toast.classList.add('hidden'), 1500);
+    });
+
+    // (Optional) update Copy Email di hero agar sesuai
+    const copyBtn = document.getElementById('copyEmail');
+    if (copyBtn) {
+      copyBtn.addEventListener('click', function (e) {
+        const rect = this.getBoundingClientRect();
+        this.style.setProperty('--x', (e.clientX - rect.left) + 'px');
+        this.style.setProperty('--y', (e.clientY - rect.top) + 'px');
+        navigator.clipboard.writeText(TARGET_EMAIL).then(() => {
+          const t = document.getElementById('copyToast');
+          if (!t) return;
+          t.classList.remove('hidden');
+          setTimeout(() => t.classList.add('hidden'), 1500);
+        });
+      }, { once: true }); // avoid double binding since you already had one
+    }
+  </script>
+</body>
+</html>
